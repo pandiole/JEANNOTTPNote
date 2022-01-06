@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 
-const MovieListItem = ({movieData}) => {
+const MovieListItem = ({onClick, movieData}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} 
+      onPress={() => { onClick(movieData.id) }}>
       <Image style={styles.thumbnail} />
       <View style={styles.informationContainer}>
         <Text style={styles.title}>
@@ -21,7 +22,7 @@ const MovieListItem = ({movieData}) => {
           {movieData.overview}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
     
 };

@@ -4,7 +4,7 @@ import { View, TextInput, Button, StyleSheet, FlatList, Text } from 'react-nativ
 import MovieListItem from './MovieListItem';
 import { getMovies } from '../api/TheMovieDB';
 
-const Search = () => {
+const Search = ({navigation}) => {
 
     const [movies, setMovies] = useState([]);
     // const [searchTerm, setSearchTerm] = useState('');
@@ -13,7 +13,7 @@ const Search = () => {
 
     // const requestMovies = async (prevMovies, offset) => {
     //     try {
-    //         const apiSearchResult = await getMovies();
+    //         const apiSearchResult = await getMovies(searchTerm);
     //         setMovies(...prevMovies, ...apiSearchResult.results);
     //       if (apiSearchResult.page < apiSearchResult.total_pages) {
     //         setIsMoreResults(true);
@@ -40,8 +40,8 @@ const Search = () => {
         searchMovies();
     }, []);
 
-    const navigateToMovieDetails = () => {
-        navigation.navigate("ViewMovie");
+    const navigateToMovieDetails = (movieID) => {
+        navigation.navigate("ViewMovie", { movieID });
     };
 
 
@@ -62,10 +62,10 @@ const Search = () => {
         data={movies}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-        <MovieListItem movieData={item} onClick={navigateToMovieDetails} 
-            // onEndReached={loadMoreMovies}
+        <MovieListItem movieData={item} 
+            onClick={navigateToMovieDetails} />
+        // onEndReached={loadMoreMovies}
             // onEndReachedThreshold={0.5}
-        />
         )}
       />
     </View>

@@ -1,20 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
-import Search from './src/components/Search';
+import Navigation from './src/navigation/Navigation';
+import { Store, Persistor } from './src/store/config';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-       <Search />
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={Store}>
+      <PersistGate loading={null} persistor={Persistor}>
+        <RootSiblingParent>
+          <NavigationContainer>
+            <Navigation />
+            <StatusBar style="auto" />
+          </NavigationContainer>
+        </RootSiblingParent>
+      </PersistGate>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
